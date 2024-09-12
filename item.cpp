@@ -100,8 +100,9 @@ string Item::timepoint_to_string(time_point time) {
 bool Item::is_bed_name() {
     string bed_symbol = R"(\/:*?"<>|)";
     if(name.empty()) return true;
-    for(char el : bed_symbol) {
-        if(name.find(el, 0) != string::npos) return true;
+    for(char name_el : name) {
+        for(char bed_symbol_el : bed_symbol)
+            if(name_el == bed_symbol_el) return true;
     }
     return false;
 }
