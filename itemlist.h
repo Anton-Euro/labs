@@ -3,14 +3,23 @@
 
 class ItemList {
     private:
-        vector<unique_ptr<Item>> items;
+        std::vector<std::unique_ptr<Item>> items;
     public:
         ItemList() = default;
         ~ItemList();
         ItemList(const ItemList &other);
+        ItemList& operator=(const ItemList& other) {
+            if (this != &other) {
+                clear();
+                for (const auto& item : other.items) {
+                    items.push_back(std::make_unique<Item>(*item));
+                }
+            }
+            return *this;
+        }
 
         void init_from_dir(const fs::path& path);
         void print_all() const;
         void clear();
-        void append(unique_ptr<Item> Item);
+        void append(std::unique_ptr<Item> Item);
 };
