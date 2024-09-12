@@ -6,7 +6,7 @@ void ItemList::init_from_dir(const fs::path& path) {
             if (fs::is_directory(entry)) {
                 init_from_dir(entry.path());
             } else {
-                items.push_back(new Item);
+                items.push_back(make_unique<Item>());
                 items[items.size()-1]->init_from_file(entry.path());
             }
         }
@@ -14,21 +14,18 @@ void ItemList::init_from_dir(const fs::path& path) {
 }
 
 void ItemList::print_all() const {
-    for(Item *el : items) {
+    for(auto &el : items) {
         cout << endl;
         el->print();
     }
 }
 
 void ItemList::clear() {
-    for(Item *el : items) {
-        delete el;
-    }
     items.clear();
 }
 
-void ItemList::append(Item *item) {
-    items.push_back(item);
+void ItemList::append(unique_ptr<Item> item) {
+    items.push_back(move(item));
 }
 
 ItemList::~ItemList() {

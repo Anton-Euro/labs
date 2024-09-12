@@ -5,11 +5,11 @@
 
 
 Item::Item(const string &name, unsigned long long size, 
-    string file_ext = "",
-    string type = "",
-    string mime_type = "",
-    time_t created_time = time(nullptr),
-    time_t modified_time = time(nullptr)
+    const string &file_ext = "",
+    const string &type = "",
+    const string &mime_type = "",
+    time_point created_time = chrono::system_clock::now(),
+    time_point modified_time = chrono::system_clock::now()
 ) : name(name), size(size), file_ext(file_ext), type(type), mime_type(mime_type), created_time(created_time), modified_time(modified_time) {}
 
 void Item::init_from_file(string path) {
@@ -20,10 +20,10 @@ void Item::init_from_file(string path) {
         // for macos
         struct stat fileInfo;
         stat(path.c_str(), &fileInfo);
-        modified_time = fileInfo.st_mtime;
-        created_time = fileInfo.st_birthtime;
+        modified_time = chrono::system_clock::from_time_t(fileInfo.st_mtime);
+        created_time = chrono::system_clock::from_time_t(fileInfo.st_birthtime);
 
-        // TODO: for windows
+        // for windows soon...
 
         string filename = file_path.filename();
 
@@ -56,8 +56,8 @@ void Item::init_from_console() {
 
     type = "";
     mime_type = "";
-    created_time = time(nullptr);
-    modified_time = time(nullptr);
+    created_time = chrono::system_clock::now();
+    modified_time = chrono::system_clock::now();
 
 }
 
@@ -66,8 +66,8 @@ void Item::print() {
     cout << "file extension: " << file_ext << endl;
     cout << "size: " << size_to_print(size) << endl;
     
-    cout << "created time: " << time_to_string(created_time) << endl;
-    cout << "modified time: " << time_to_string(modified_time) << endl;
+    cout << "created time: " << timepoint_to_string(created_time) << endl;
+    cout << "modified time: " << timepoint_to_string(modified_time) << endl;
 }
 
 
@@ -88,14 +88,16 @@ string Item::size_to_print(unsigned long long filesize) {
     return str + " " + name_size_file[d];
 }
 
-string Item::time_to_string(time_t time) {
-    char buffer[80];
-    strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", localtime(&time));
-    return buffer;
+string Item::timepoint_to_string(time_point time) {
+    time_t timeT = chrono::system_clock::to_time_t(time);
+    tm tm = *localtime(&timeT);
+    ostringstream oss;
+    oss << put_time(&tm, "%Y-%m-%d %H:%M:%S");
+    return oss.str();
 }
 
 bool Item::is_bed_name() {
-    string bed_symbol = "/\\\"";
+    string bed_symbol = R"(\/:*?"<>|)";
     if(name.empty()) return true;
     for(char el : bed_symbol) {
         if(name.find(el, 0) != string::npos) return true;

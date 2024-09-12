@@ -1,30 +1,32 @@
 #include <string>
-#include <ctime>
+#include <chrono>
 #include <filesystem>
 #include <iostream>
 #include <vector>
+#include <sstream>
 #include <cmath>
 #include <sys/stat.h>
 
 using namespace std;
 namespace fs = std::filesystem;
+using time_point = std::chrono::system_clock::time_point;
 
 class Item {
     public:
         string name;
         unsigned long long size;
-        time_t created_time;
-        time_t modified_time;
+        time_point created_time;
+        time_point modified_time;
         string file_ext;
         string type;
         string mime_type;
 
         Item(const string &name, unsigned long long size, 
-            string file_ext,
-            string type,
-            string mime_type,
-            time_t created_time,
-            time_t modified_time
+            const string &file_ext,
+            const string &type,
+            const string &mime_type,
+            time_point created_time,
+            time_point modified_time
         );
         Item() = default;
 
@@ -34,6 +36,6 @@ class Item {
 
     private:
         string size_to_print(unsigned long long filesize);
-        string time_to_string(time_t time);
+        string timepoint_to_string(time_point time);
         bool is_bed_name();
 };

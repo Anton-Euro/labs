@@ -1,13 +1,14 @@
 #include "item.h"
+#include <memory>
 
 class ItemList {
     private:
-        vector<Item*> items;
+        vector<unique_ptr<Item>> items;
     public:
         ~ItemList();
 
         void init_from_dir(const fs::path& path);
         void print_all() const;
         void clear();
-        void append(Item *item);
+        void append(unique_ptr<Item> Item);
 };

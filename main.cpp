@@ -18,13 +18,13 @@ int main() {
             string path;
             cout << "Enter path to file: ";
             cin >> path;
-            auto *ptr = new Item;
+            unique_ptr<Item> ptr = make_unique<Item>();
             ptr->init_from_file(path);
-            items.append(ptr);
+            items.append(move(ptr));
         } else if(choice == 3) {
-            auto *ptr = new Item;
+            unique_ptr<Item> ptr = make_unique<Item>();
             ptr->init_from_console();
-            items.append(ptr);
+            items.append(move(ptr));
         } else if(choice == 4) {
             items.print_all();
         } else if(choice == 5) {
