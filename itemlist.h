@@ -7,7 +7,7 @@ class ItemList {
         ~ItemList();
 
         void init_from_dir(const fs::path& path);
-        void print_all();
+        void print_all() const;
         void clear();
         void append(Item *item);
 };

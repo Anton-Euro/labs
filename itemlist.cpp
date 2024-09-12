@@ -13,7 +13,7 @@ void ItemList::init_from_dir(const fs::path& path) {
     }
 }
 
-void ItemList::print_all() {
+void ItemList::print_all() const {
     for(Item *el : items) {
         cout << endl;
         el->print();

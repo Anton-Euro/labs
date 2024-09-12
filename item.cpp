@@ -4,23 +4,13 @@
 // PUBLIC
 
 
-Item::Item(string name, unsigned long long size, 
-    string file_ext,
-    string type,
-    string mime_type,
-    time_t created_time,
-    time_t modified_time
-) {
-    this->name = name;
-    this->size = size;
-    this->created_time = created_time;
-    this->modified_time = modified_time;
-    this->file_ext = file_ext;
-    this->type = type;
-    this->mime_type = mime_type;
-}
-
-Item::Item() {}
+Item::Item(const string &name, unsigned long long size, 
+    string file_ext = "",
+    string type = "",
+    string mime_type = "",
+    time_t created_time = time(nullptr),
+    time_t modified_time = time(nullptr)
+) : name(name), size(size), file_ext(file_ext), type(type), mime_type(mime_type), created_time(created_time), modified_time(modified_time) {}
 
 void Item::init_from_file(string path) {
     fs::path file_path = path;
@@ -33,9 +23,7 @@ void Item::init_from_file(string path) {
         modified_time = fileInfo.st_mtime;
         created_time = fileInfo.st_birthtime;
 
-        // for windows
-        // auto ftime = fs::last_write_time(file_path);
-        // auto ctime = fs::creation_time(file_path);
+        // TODO: for windows
 
         string filename = file_path.filename();
 
@@ -107,7 +95,8 @@ string Item::time_to_string(time_t time) {
 }
 
 bool Item::is_bed_name() {
-    char bed_symbol[] = {'/', '\\', '"'};
+    string bed_symbol = "/\\\"";
+    if(name.empty()) return true;
     for(char el : bed_symbol) {
         if(name.find(el, 0) != string::npos) return true;
     }

@@ -8,7 +8,7 @@ int main() {
         cout << "1 - init list from dir\n2 - init item from file\n3 - init item from console\n4 - print all items\n5 - clear item list\n0 - exit\nSelect choose: ";
         cin >> choice;
         cout << "---------------------------------\n";
-        
+
         if(choice == 1) {
             string path;
             cout << "Enter your path: ";
@@ -18,11 +18,11 @@ int main() {
             string path;
             cout << "Enter path to file: ";
             cin >> path;
-            Item *ptr = new Item;
+            auto *ptr = new Item;
             ptr->init_from_file(path);
             items.append(ptr);
         } else if(choice == 3) {
-            Item *ptr = new Item;
+            auto *ptr = new Item;
             ptr->init_from_console();
             items.append(ptr);
         } else if(choice == 4) {
