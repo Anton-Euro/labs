@@ -31,3 +31,8 @@ void ItemList::append(unique_ptr<Item> item) {
 ItemList::~ItemList() {
     clear();
 }
+
+ItemList::ItemList(const ItemList& other) {
+    for (const auto& item : other.items)
+        items.push_back(std::make_unique<Item>(*item));
+}

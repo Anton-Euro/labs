@@ -15,11 +15,11 @@ class Item {
     public:
         string name;
         unsigned long long size;
-        time_point created_time;
-        time_point modified_time;
         string file_ext;
         string type;
         string mime_type;
+        time_point created_time;
+        time_point modified_time;
 
         Item(const string &name, unsigned long long size, 
             const string &file_ext,

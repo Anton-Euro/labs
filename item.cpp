@@ -90,7 +90,8 @@ string Item::size_to_print(unsigned long long filesize) {
 
 string Item::timepoint_to_string(time_point time) {
     time_t timeT = chrono::system_clock::to_time_t(time);
-    tm tm = *localtime(&timeT);
+    tm tm;
+    localtime_r(&timeT, &tm);
     ostringstream oss;
     oss << put_time(&tm, "%Y-%m-%d %H:%M:%S");
     return oss.str();

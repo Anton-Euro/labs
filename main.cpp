@@ -18,11 +18,11 @@ int main() {
             string path;
             cout << "Enter path to file: ";
             cin >> path;
-            unique_ptr<Item> ptr = make_unique<Item>();
+            auto ptr = make_unique<Item>();
             ptr->init_from_file(path);
             items.append(move(ptr));
         } else if(choice == 3) {
-            unique_ptr<Item> ptr = make_unique<Item>();
+            auto ptr = make_unique<Item>();
             ptr->init_from_console();
             items.append(move(ptr));
         } else if(choice == 4) {
