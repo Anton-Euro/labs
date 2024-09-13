@@ -1,6 +1,8 @@
 #include "item.h"
 using namespace std;
 
+const unsigned int KILO = 1024;
+
 // PUBLIC
 
 
@@ -78,9 +80,9 @@ string Item::size_to_print(unsigned long long filesize) {
     vector<string> name_size_file = {"bytes", "KB", "MB", "GB", "TB"};
     short d = 0;
     double total_size = filesize;
-    while(total_size / 1024 > 1) {
+    while(total_size / KILO > 1) {
         d++;
-        total_size = round((total_size / 1024) * 100.0) / 100.0;
+        total_size = round((total_size / KILO) * 100.0) / 100.0;
     }
     string str = to_string(total_size);
     int dot_pos = str.find('.');
