@@ -33,7 +33,7 @@ int main() {
             items.clear();
         } else if(choice == 6) {
             items.print_all();
-            unsigned int index = -1;
+            int index = -1;
             while(index < 0 || index > items.get_size()) {
                 cout << "Enter item index: ";
                 cin >> index;
