@@ -22,7 +22,7 @@ void ItemList::print_all() const {
     }
 }
 
-unsigned int ItemList::get_size() {
+unsigned int ItemList::get_size() const {
     return items.size();
 }
 

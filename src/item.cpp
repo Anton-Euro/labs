@@ -11,7 +11,7 @@ Item::Item(const string &name, unsigned long long size,
     const string &mime_type = "",
     time_point created_time = chrono::system_clock::now(),
     time_point modified_time = chrono::system_clock::now()
-) : name(name), size(size), file_ext(file_ext), type(type), mime_type(mime_type), created_time(created_time), modified_time(modified_time) {}
+) : name(name), file_ext(file_ext), type(type), mime_type(mime_type), created_time(created_time), modified_time(modified_time), size(size) {}
 
 void Item::init_from_file(string path) {
     fs::path file_path = path;

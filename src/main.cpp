@@ -38,7 +38,7 @@ int main() {
                 cout << "Enter item index: ";
                 cin >> index;
             }
-            Item* ptr = items.get_from_index(index);
+            const Item* ptr = items.get_from_index(index);
             cout << size_to_print(*ptr) << endl;
         } else if(choice == 7) {
             items.sort();
