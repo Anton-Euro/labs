@@ -1,7 +1,6 @@
 #include "headers/item.h"
+#include "headers/friend.h"
 using namespace std;
-
-const unsigned int KILO = 1024;
 
 // PUBLIC
 
@@ -66,29 +65,18 @@ void Item::init_from_console() {
 void Item::print() {
     cout << "name: " << name << endl;
     cout << "file extension: " << file_ext << endl;
-    cout << "size: " << size_to_print(size) << endl;
+    cout << "size: " << size_to_print(*this) << endl;
     
     cout << "created time: " << timepoint_to_string(created_time) << endl;
     cout << "modified time: " << timepoint_to_string(modified_time) << endl;
 }
 
+unsigned int Item::get_size() const {
+    return size;
+}
+
 
 // PRIVATE
-
-
-string Item::size_to_print(unsigned long long filesize) {
-    vector<string> name_size_file = {"bytes", "KB", "MB", "GB", "TB"};
-    short d = 0;
-    double total_size = filesize;
-    while(total_size / KILO > 1) {
-        d++;
-        total_size = round((total_size / KILO) * 100.0) / 100.0;
-    }
-    string str = to_string(total_size);
-    int dot_pos = str.find('.');
-    str = str.substr(0, dot_pos + 3);
-    return str + " " + name_size_file[d];
-}
 
 string Item::timepoint_to_string(time_point time) {
     time_t timeT = chrono::system_clock::to_time_t(time);

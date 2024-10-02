@@ -15,10 +15,15 @@ void ItemList::init_from_dir(const fs::path& path) {
 }
 
 void ItemList::print_all() const {
-    for(auto &el : items) {
+    for(int i = 0; i < items.size(); i++) {
         cout << endl;
-        el->print();
+        cout << "Index: " << i << endl;
+        items[i]->print();
     }
+}
+
+unsigned int ItemList::get_size() {
+    return items.size();
 }
 
 void ItemList::clear() {
@@ -35,5 +40,25 @@ ItemList::~ItemList() {
 
 ItemList::ItemList(const ItemList& other) {
     for (const auto& item : other.items)
-        items.push_back(std::make_unique<Item>(*item));
+        items.push_back(make_unique<Item>(*item));
+}
+
+Item* ItemList::get_from_index(unsigned int index) {
+    return items[index].get();
+}
+
+void ItemList::sort() {
+    bool swapped;
+    int n = items.size();
+
+    do {
+        swapped = false;
+        for (int i = 0; i < n - 1; ++i) {
+            if (*items[i] > *items[i + 1]) {
+                swap(items[i], items[i + 1]);
+                swapped = true;
+            }
+        }
+        --n;
+    } while (swapped);
 }

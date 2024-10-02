@@ -11,9 +11,11 @@ namespace fs = std::filesystem;
 using time_point = std::chrono::system_clock::time_point;
 
 class Item {
+    friend std::string size_to_print(const Item &item);
+
     public:
         std::string name;
-        unsigned long long size;
+        
         std::string file_ext;
         std::string type;
         std::string mime_type;
@@ -29,12 +31,25 @@ class Item {
         );
         Item() = default;
 
+        bool operator == (const Item &item) const {
+            return size == item.get_size();
+        }
+
+        bool operator > (const Item &item) const {
+            return size > item.get_size();
+        }
+
+        bool operator < (const Item &item) const {
+            return size < item.get_size();
+        }
+
         void init_from_file(std::string);
         void init_from_console();
+        unsigned int get_size() const;
         void print();
 
     private:
-        std::string size_to_print(unsigned long long filesize);
+        unsigned long long size;
         std::string timepoint_to_string(time_point time);
         bool is_bed_name();
 };

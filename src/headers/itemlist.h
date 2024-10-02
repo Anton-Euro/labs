@@ -22,4 +22,7 @@ class ItemList {
         void print_all() const;
         void clear();
         void append(std::unique_ptr<Item> Item);
+        unsigned int get_size();
+        Item* get_from_index(unsigned int index); 
+        void sort();
 };
