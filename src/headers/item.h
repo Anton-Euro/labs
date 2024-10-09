@@ -25,6 +25,6 @@ class Item : public File, public Dir {
             return size < item.get_size();
         }
 
-        unsigned int get_size() const;
-        void print();
+        unsigned int get_size() const final;
+        void print() final;
 };
