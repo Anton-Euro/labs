@@ -26,4 +26,5 @@ void MainWindow::initFromDir() {
 
 MainWindow::~MainWindow() {
     delete ui;
+    delete DirList;
 }
