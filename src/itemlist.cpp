@@ -1,64 +1,61 @@
 #include "headers/itemlist.h"
 using namespace std;
 
-void ItemList::init_from_dir(const fs::path& path) {
+std::unique_ptr<Item> ItemList::init_from_file(string path) {
+    std::unique_ptr<Item> new_item = std::make_unique<Item>();
+    fs::path file_path = path;
+    if (fs::exists(file_path) && fs::is_regular_file(file_path)) {
+        new_item->size = fs::file_size(file_path);
+
+        // for macos
+        struct stat fileInfo;
+        stat(path.c_str(), &fileInfo);
+        new_item->modified_time = chrono::system_clock::from_time_t(fileInfo.st_mtime);
+        new_item->created_time = chrono::system_clock::from_time_t(fileInfo.st_birthtime);
+
+        // for windows soon...
+
+        string filename = file_path.filename();
+
+        short dot_pos = filename.rfind('.');
+        if (dot_pos <= 0) {
+            new_item->name = filename;
+            new_item->file_ext = "";
+        } else {
+            new_item->name = filename.substr(0, dot_pos);
+            new_item->file_ext = filename.substr(dot_pos + 1);
+        }
+ 
+        new_item->type = "file";
+
+        new_item->mime_type = "";
+    } else {
+        std::cout << "file not exists" << std::endl;
+    }
+    return std::move(new_item);
+}
+
+
+
+void ItemList::init_from_dir_req(const fs::path& path, Item *item_ptr) {
     if (fs::is_directory(path)) {
         for (const auto& entry : fs::directory_iterator(path)) {
             if (fs::is_directory(entry)) {
-                init_from_dir(entry.path());
+                struct stat fileInfo;
+                stat(path.c_str(), &fileInfo);
+                item_ptr->items.push_back(std::make_unique<Item>(entry.path().filename(), 0, "", "dir", "", chrono::system_clock::from_time_t(fileInfo.st_birthtime), chrono::system_clock::from_time_t(fileInfo.st_mtime), true)); // TODO: fileInfo.st_birthtime
+                init_from_dir_req(entry.path(), item_ptr->items.back().get());
             } else {
-                items.push_back(make_unique<Item>());
-                items[items.size()-1]->init_from_file(entry.path());
+                item_ptr->items.push_back(init_from_file(entry.path()));
             }
         }
     }
+}
+
+void ItemList::init_from_dir(const fs::path& path) {
+    init_from_dir_req(path, itemlistt.get());
 }
 
 void ItemList::print_all() const {
-    for(int i = 0; i < items.size(); i++) {
-        cout << endl;
-        cout << "Index: " << i << endl;
-        items[i]->print();
-    }
-}
-
-unsigned int ItemList::get_size() const {
-    return items.size();
-}
-
-void ItemList::clear() {
-    items.clear();
-}
-
-void ItemList::append(unique_ptr<Item> item) {
-    items.push_back(move(item));
-}
-
-ItemList::~ItemList() {
-    clear();
-}
-
-ItemList::ItemList(const ItemList& other) {
-    for (const auto& item : other.items)
-        items.push_back(make_unique<Item>(*item));
-}
-
-Item* ItemList::get_from_index(unsigned int index) {
-    return items[index].get();
-}
-
-void ItemList::sort() {
-    bool swapped;
-    int n = items.size();
-
-    do {
-        swapped = false;
-        for (int i = 0; i < n - 1; ++i) {
-            if (*items[i] > *items[i + 1]) {
-                swap(items[i], items[i + 1]);
-                swapped = true;
-            }
-        }
-        --n;
-    } while (swapped);
+    itemlistt->print();
 }

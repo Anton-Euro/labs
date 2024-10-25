@@ -2,44 +2,14 @@
 using namespace std;
 
 File::File(const string &name, unsigned long long size, 
-    const string &file_ext = "",
-    const string &type = "",
-    const string &mime_type = "",
-    time_point created_time = chrono::system_clock::now(),
-    time_point modified_time = chrono::system_clock::now()
+    const string &file_ext,
+    const string &type,
+    const string &mime_type,
+    file_list::time_point created_time,
+    file_list::time_point modified_time
 ) : name(name), size(size), file_ext(file_ext), type(type), mime_type(mime_type), created_time(created_time), modified_time(modified_time) {}
 
-void File::init_from_file(string path) {
-    fs::path file_path = path;
-    if (fs::exists(file_path) && fs::is_regular_file(file_path)) {
-        size = fs::file_size(file_path);
 
-        // for macos
-        struct stat fileInfo;
-        stat(path.c_str(), &fileInfo);
-        modified_time = chrono::system_clock::from_time_t(fileInfo.st_mtime);
-        created_time = chrono::system_clock::from_time_t(fileInfo.st_birthtime);
-
-        // for windows soon...
-
-        string filename = file_path.filename();
-
-        short dot_pos = filename.rfind('.');
-        if (dot_pos == -1) {
-            name = filename;
-            file_ext = "";
-        } else {
-            name = filename.substr(0, dot_pos);
-            file_ext = filename.substr(dot_pos + 1);
-        }
-
-        type = "file";
-
-        mime_type = "";
-    } else {
-        std::cout << "file not exists" << std::endl;
-    }
-}
 
 void File::init_from_console() {
     do {
@@ -72,7 +42,7 @@ void File::print() {
 
 
 
-string File::timepoint_to_string(time_point time) {
+string File::timepoint_to_string(file_list::time_point time) {
     time_t timeT = chrono::system_clock::to_time_t(time);
     tm tm;
     localtime_r(&timeT, &tm);
@@ -93,13 +63,19 @@ bool File::is_bed_name() {
 
 const unsigned int KILO = 1024;
 
+template <typename T>
+T round_t(T a) {
+    return round((a / KILO) * 100.0) / 100.0;
+}
+
+
 string File::size_to_print() {
     vector<string> name_size_file = {"bytes", "KB", "MB", "GB", "TB"};
     short d = 0;
     double total_size = size;
     while(total_size / KILO > 1) {
         d++;
-        total_size = round((total_size / KILO) * 100.0) / 100.0;
+        total_size = round_t(total_size);
     }
     string str = to_string(total_size);
     int dot_pos = str.find('.');
