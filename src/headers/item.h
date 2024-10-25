@@ -28,7 +28,7 @@ class Item : public File, public Dir {
 
         unsigned int get_size() const final;
         void print() final;
-        unsigned int get_len() {
+        unsigned int get_len() const {
             return items.size();
         }
 

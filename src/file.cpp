@@ -42,7 +42,7 @@ void File::print() {
 
 
 
-string File::timepoint_to_string(file_list::time_point time) {
+string File::timepoint_to_string(file_list::time_point time) const {
     time_t timeT = chrono::system_clock::to_time_t(time);
     tm tm;
     localtime_r(&timeT, &tm);
@@ -51,7 +51,7 @@ string File::timepoint_to_string(file_list::time_point time) {
     return oss.str();
 }
 
-bool File::is_bed_name() {
+bool File::is_bed_name() const {
     string bed_symbol = R"(\/:*?"<>|)";
     if(name.empty()) return true;
     for(char name_el : name) {
@@ -69,7 +69,7 @@ T round_t(T a) {
 }
 
 
-string File::size_to_print() {
+string File::size_to_print() const {
     vector<string> name_size_file = {"bytes", "KB", "MB", "GB", "TB"};
     short d = 0;
     double total_size = size;

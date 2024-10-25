@@ -41,9 +41,9 @@ class File {
         void init_from_console();
     
     private:
-        std::string timepoint_to_string(file_list::time_point time);
-        bool is_bed_name();
-        std::string size_to_print();
+        std::string timepoint_to_string(file_list::time_point time) const;
+        bool is_bed_name() const;
+        std::string size_to_print() const;
 };
 
 #endif
