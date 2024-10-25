@@ -4,6 +4,7 @@
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=Anton-Euro_labs&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=Anton-Euro_labs)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=Anton-Euro_labs&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=Anton-Euro_labs)
 ### Реализовано в лабораторной:
+- графический интерфейс
 - инициализация всех локальных файлов через директорию
 - инициализация класса файла через локальный файл
 - инициализация класса файла через консоль
@@ -23,7 +24,7 @@
 
 ### Сборка
 ```bash
-g++ main.cpp item.cpp itemlist.cpp dir.cpp file.cpp -o main
+cmake --build .
 ```
 
 ### Ссылка на Sonar - [клац](https://sonarcloud.io/project/overview?id=Anton-Euro_labs)
