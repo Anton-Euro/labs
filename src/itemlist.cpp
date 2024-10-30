@@ -2,7 +2,7 @@
 using namespace std;
 
 std::shared_ptr<Item> ItemList::init_from_file(string path) {
-    std::shared_ptr<Item> new_item = std::make_shared<Item>();
+    auto new_item = std::make_shared<Item>();
     fs::path file_path = path;
     if (fs::exists(file_path) && fs::is_regular_file(file_path)) {
         new_item->size = fs::file_size(file_path);
@@ -43,7 +43,7 @@ void ItemList::init_from_dir_req(const fs::path& path, std::shared_ptr<Item> ite
             if (fs::is_directory(entry)) {
                 struct stat fileInfo;
                 stat(path.c_str(), &fileInfo);
-                item_ptr->items.push_back(std::make_shared<Item>(entry.path().filename(), 0, "", "dir", "", chrono::system_clock::from_time_t(fileInfo.st_birthtime), chrono::system_clock::from_time_t(fileInfo.st_mtime), true)); // TODO: fileInfo.st_birthtime
+                item_ptr->items.push_back(std::make_shared<Item>(entry.path().filename(), 0, "", "dir", "", chrono::system_clock::from_time_t(fileInfo.st_birthtime), chrono::system_clock::from_time_t(fileInfo.st_mtime), true));
                 init_from_dir_req(entry.path(), item_ptr->items.back());
             } else {
                 item_ptr->items.push_back(init_from_file(entry.path()));

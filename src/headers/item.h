@@ -48,7 +48,7 @@ class Item : public File, public Dir {
         }
 
         std::unique_ptr<FileMeta> get_from_index(int index) {
-            std::unique_ptr<FileMeta> file_meta = std::make_unique<FileMeta>();
+            auto file_meta = std::make_unique<FileMeta>();
             file_meta->name = items[index]->name;
             file_meta->size = items[index]->size;
             file_meta->file_ext = items[index]->file_ext;
@@ -57,7 +57,7 @@ class Item : public File, public Dir {
             file_meta->modified_time = items[index]->modified_time;
             file_meta->is_dir = items[index]->is_dir;
 
-            return std::move(file_meta);
+            return file_meta;
         }
 
         std::shared_ptr<Item> get_ptr_from_index(int index) {

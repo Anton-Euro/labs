@@ -8,7 +8,10 @@ class ItemList {
     friend class QTableViewFilesModel;
     friend class MainWindow;
     public:
-        ItemList(): list(std::make_shared<Item>("root", 0)) {current_dir = list;};
+        ItemList() {
+            list = std::make_shared<Item>("root", 0);
+            current_dir = list;
+        };
         std::shared_ptr<Item> init_from_file(std::string path);
         void init_from_dir(const fs::path& path);
         void print_all() const;
