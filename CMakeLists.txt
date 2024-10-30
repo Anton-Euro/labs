@@ -30,10 +30,17 @@ set(UI_HEADERS
     src/ui/ui_mainwindow.h
 )
 
+set(RESOURCE_FILES
+    src/resources.qrc
+)
+
+qt_add_resources(RSS_SOURCES ${RESOURCE_FILES})
+
 add_executable(${PROJECT_N}
     ${SOURCES}
     ${HEADERS}
     ${UI_HEADERS}
+    ${RSS_SOURCES}
 )
 
 target_link_libraries(${PROJECT_N}

@@ -1,20 +1,22 @@
 #include "itemlist.h"
 #include <QModelIndex>
-#include <QAbstractListModel>
+#include <QAbstractTableModel>
 #include <QString>
-#include <QVector>
+#include <QIcon>
+#include <QPixmap>
 
-class QListViewExplorerModel: public QAbstractListModel
+class QTableViewFilesModel: public QAbstractTableModel
 {
 public:
-    QListViewExplorerModel(QObject *parent=nullptr);
-    int rowCount(const QModelIndex &) const;
-    QVariant data(const QModelIndex &index, int role) const;
+    QTableViewFilesModel(std::shared_ptr<ItemList> listptr, QObject *parent=nullptr);
+    int rowCount(const QModelIndex &parent = QModelIndex()) const;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const;
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
+    QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const;
 
-    void getFolderList(QString folderPath, ItemList *dirList);
-    void clearDirList();
+    void refresh();
 
 private:
-    QVector<QString> StringDirList;
+    std::shared_ptr<ItemList> itemlist;
 
 };

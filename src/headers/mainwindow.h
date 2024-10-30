@@ -12,12 +12,16 @@ public:
     ~MainWindow();
 
 private slots:
-    void initFromDir();
+    void double_click_to_dir(const QModelIndex &index);
+    void init_from_dir();
+    void init_from_file();
+    void go_back();
+    void go_next();
 
 private:
     Ui::MainWindow *ui;
-    ItemList *DirList;
-    Item *cur_pos;
-
-    QListViewExplorerModel *model;
+    std::shared_ptr<ItemList> itemlist;
+    QTableViewFilesModel *model;
+    QVector<std::shared_ptr<Item>> history;
+    int history_index;
 };

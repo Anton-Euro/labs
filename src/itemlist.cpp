@@ -1,8 +1,8 @@
 #include "headers/itemlist.h"
 using namespace std;
 
-std::unique_ptr<Item> ItemList::init_from_file(string path) {
-    std::unique_ptr<Item> new_item = std::make_unique<Item>();
+std::shared_ptr<Item> ItemList::init_from_file(string path) {
+    std::shared_ptr<Item> new_item = std::make_shared<Item>();
     fs::path file_path = path;
     if (fs::exists(file_path) && fs::is_regular_file(file_path)) {
         new_item->size = fs::file_size(file_path);
@@ -32,19 +32,19 @@ std::unique_ptr<Item> ItemList::init_from_file(string path) {
     } else {
         std::cout << "file not exists" << std::endl;
     }
-    return std::move(new_item);
+    return new_item;
 }
 
 
 
-void ItemList::init_from_dir_req(const fs::path& path, Item *item_ptr) {
+void ItemList::init_from_dir_req(const fs::path& path, std::shared_ptr<Item> item_ptr) {
     if (fs::is_directory(path)) {
         for (const auto& entry : fs::directory_iterator(path)) {
             if (fs::is_directory(entry)) {
                 struct stat fileInfo;
                 stat(path.c_str(), &fileInfo);
-                item_ptr->items.push_back(std::make_unique<Item>(entry.path().filename(), 0, "", "dir", "", chrono::system_clock::from_time_t(fileInfo.st_birthtime), chrono::system_clock::from_time_t(fileInfo.st_mtime), true)); // TODO: fileInfo.st_birthtime
-                init_from_dir_req(entry.path(), item_ptr->items.back().get());
+                item_ptr->items.push_back(std::make_shared<Item>(entry.path().filename(), 0, "", "dir", "", chrono::system_clock::from_time_t(fileInfo.st_birthtime), chrono::system_clock::from_time_t(fileInfo.st_mtime), true)); // TODO: fileInfo.st_birthtime
+                init_from_dir_req(entry.path(), item_ptr->items.back());
             } else {
                 item_ptr->items.push_back(init_from_file(entry.path()));
             }
@@ -53,9 +53,11 @@ void ItemList::init_from_dir_req(const fs::path& path, Item *item_ptr) {
 }
 
 void ItemList::init_from_dir(const fs::path& path) {
-    init_from_dir_req(path, itemlistt.get());
+    list->items.clear();
+    current_dir = list;
+    init_from_dir_req(path, list);
 }
 
 void ItemList::print_all() const {
-    itemlistt->print();
+    list->print();
 }

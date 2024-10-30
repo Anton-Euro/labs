@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>static/folder.png</file>
+        <file>static/file.png</file>
+    </qresource>
+</RCC>

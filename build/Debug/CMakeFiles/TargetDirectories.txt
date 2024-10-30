@@ -1,3 +1,0 @@
-/Users/geml/C++/Lab1gui/build/Debug/CMakeFiles/lab.dir
-/Users/geml/C++/Lab1gui/build/Debug/CMakeFiles/edit_cache.dir
-/Users/geml/C++/Lab1gui/build/Debug/CMakeFiles/rebuild_cache.dir
