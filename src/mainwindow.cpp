@@ -45,6 +45,7 @@ void MainWindow::double_click_to_dir(const QModelIndex &index) {
     if(itemlist->current_dir->get_isdir(index.row()) == true) {
         while(history.size()-1 != history_index) history.removeLast();
         history.push_back(itemlist->current_dir);
+        hist.push(itemlist->current_dir);
         history_index++;
         itemlist->current_dir = itemlist->current_dir->get_ptr_from_index(index.row());
         model->refresh();
@@ -56,6 +57,7 @@ void MainWindow::go_back() {
     if(!history.empty() && history_index-1 > -1) {
         if(history[history_index] != itemlist->current_dir) {
             history.push_back(itemlist->current_dir);
+            hist.pop();
             history_index++;
         }
         

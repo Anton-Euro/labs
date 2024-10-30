@@ -1,6 +1,7 @@
 #include <QMainWindow>
 #include "itemlist.h"
 #include "listviewexplorer.h"
+#include "stack.h"
 
 namespace Ui {
     class MainWindow;
@@ -24,4 +25,5 @@ private:
     QTableViewFilesModel *model;
     QVector<std::shared_ptr<Item>> history;
     int history_index;
+    Stack<std::shared_ptr<Item>> hist;
 };

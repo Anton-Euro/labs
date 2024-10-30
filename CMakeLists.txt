@@ -24,6 +24,7 @@ set(HEADERS
     src/headers/file.h
     src/headers/dir.h
     src/headers/listviewexplorer.h
+    src/headers/stack.h
 )
 
 set(UI_HEADERS
