@@ -18,6 +18,7 @@ private slots:
     void init_from_file();
     void go_back();
     void go_next();
+    void export_to_json();
 
 private:
     Ui::MainWindow *ui;

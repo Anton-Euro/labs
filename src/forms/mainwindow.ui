@@ -15,7 +15,31 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="1" column="0" colspan="7">
+    <item row="0" column="1">
+     <widget class="QPushButton" name="next">
+      <property name="text">
+       <string>&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="6">
+     <widget class="QPushButton" name="add_file">
+      <property name="text">
+       <string>add file</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QPushButton" name="back">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="text">
+       <string>&lt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0" colspan="8">
      <widget class="QTableView" name="file_view">
       <property name="editTriggers">
        <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
@@ -43,34 +67,17 @@
       </attribute>
      </widget>
     </item>
-    <item row="0" column="0">
-     <widget class="QPushButton" name="back">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="text">
-       <string>&lt;</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="5">
-     <widget class="QPushButton" name="add_file">
-      <property name="text">
-       <string>add file</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="6">
+    <item row="0" column="7">
      <widget class="QPushButton" name="init_from_dir">
       <property name="text">
        <string>init from dir</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="1">
-     <widget class="QPushButton" name="next">
+    <item row="0" column="5">
+     <widget class="QPushButton" name="export_json">
       <property name="text">
-       <string>&gt;</string>
+       <string>export to json</string>
       </property>
      </widget>
     </item>

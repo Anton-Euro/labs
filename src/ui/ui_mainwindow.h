@@ -25,11 +25,12 @@ class Ui_MainWindow
 public:
     QWidget *centralwidget;
     QGridLayout *gridLayout_2;
-    QTableView *file_view;
-    QPushButton *back;
-    QPushButton *add_file;
-    QPushButton *init_from_dir;
     QPushButton *next;
+    QPushButton *add_file;
+    QPushButton *back;
+    QTableView *file_view;
+    QPushButton *init_from_dir;
+    QPushButton *export_json;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -40,6 +41,22 @@ public:
         centralwidget->setObjectName("centralwidget");
         gridLayout_2 = new QGridLayout(centralwidget);
         gridLayout_2->setObjectName("gridLayout_2");
+        next = new QPushButton(centralwidget);
+        next->setObjectName("next");
+
+        gridLayout_2->addWidget(next, 0, 1, 1, 1);
+
+        add_file = new QPushButton(centralwidget);
+        add_file->setObjectName("add_file");
+
+        gridLayout_2->addWidget(add_file, 0, 6, 1, 1);
+
+        back = new QPushButton(centralwidget);
+        back->setObjectName("back");
+        back->setEnabled(true);
+
+        gridLayout_2->addWidget(back, 0, 0, 1, 1);
+
         file_view = new QTableView(centralwidget);
         file_view->setObjectName("file_view");
         file_view->setEditTriggers(QAbstractItemView::EditTrigger::NoEditTriggers);
@@ -51,28 +68,17 @@ public:
         file_view->horizontalHeader()->setStretchLastSection(true);
         file_view->verticalHeader()->setVisible(false);
 
-        gridLayout_2->addWidget(file_view, 1, 0, 1, 7);
-
-        back = new QPushButton(centralwidget);
-        back->setObjectName("back");
-        back->setEnabled(true);
-
-        gridLayout_2->addWidget(back, 0, 0, 1, 1);
-
-        add_file = new QPushButton(centralwidget);
-        add_file->setObjectName("add_file");
-
-        gridLayout_2->addWidget(add_file, 0, 5, 1, 1);
+        gridLayout_2->addWidget(file_view, 1, 0, 1, 8);
 
         init_from_dir = new QPushButton(centralwidget);
         init_from_dir->setObjectName("init_from_dir");
 
-        gridLayout_2->addWidget(init_from_dir, 0, 6, 1, 1);
+        gridLayout_2->addWidget(init_from_dir, 0, 7, 1, 1);
 
-        next = new QPushButton(centralwidget);
-        next->setObjectName("next");
+        export_json = new QPushButton(centralwidget);
+        export_json->setObjectName("export_json");
 
-        gridLayout_2->addWidget(next, 0, 1, 1, 1);
+        gridLayout_2->addWidget(export_json, 0, 5, 1, 1);
 
         MainWindow->setCentralWidget(centralwidget);
 
@@ -84,10 +90,11 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "lab", nullptr));
-        back->setText(QCoreApplication::translate("MainWindow", "<", nullptr));
-        add_file->setText(QCoreApplication::translate("MainWindow", "add file", nullptr));
-        init_from_dir->setText(QCoreApplication::translate("MainWindow", "init from dir", nullptr));
         next->setText(QCoreApplication::translate("MainWindow", ">", nullptr));
+        add_file->setText(QCoreApplication::translate("MainWindow", "add file", nullptr));
+        back->setText(QCoreApplication::translate("MainWindow", "<", nullptr));
+        init_from_dir->setText(QCoreApplication::translate("MainWindow", "init from dir", nullptr));
+        export_json->setText(QCoreApplication::translate("MainWindow", "export to json", nullptr));
     } // retranslateUi
 
 };

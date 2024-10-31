@@ -1,4 +1,16 @@
 #include <stdexcept>
+#include <exception>
+
+class MyException : public std::exception {
+private:
+    std::string message;
+public:
+    explicit MyException(const std::string& msg) : message(msg) {}
+
+    const char* what() const noexcept override {
+        return message.c_str();
+    }
+};
 
 template <typename T>
 class Stack {
@@ -14,21 +26,21 @@ public:
 
     void push(const T& value) {
         if (isFull()) {
-            throw std::overflow_error("Stack overflow");
+            throw MyException("Stack overflow");
         }
         data[++top] = value;
     }
 
     void pop() {
         if (isEmpty()) {
-            throw std::underflow_error("Stack underflow");
+            throw MyException("Stack underflow");
         }
         --top;
     }
 
     T peek() const {
         if (isEmpty()) {
-            throw std::underflow_error("Stack is empty");
+            throw MyException("Stack is empty");
         }
         return data[top];
     }
