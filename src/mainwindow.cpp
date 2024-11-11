@@ -3,7 +3,7 @@
 #include <QFileDialog>
 #include <iostream>
 #include <fstream>
-#include "headers/json.hpp"
+#include <json.hpp>
 
 using json = nlohmann::json;
 
