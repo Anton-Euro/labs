@@ -26,7 +26,7 @@ set(HEADERS
     src/headers/file.h
     src/headers/dir.h
     src/headers/listviewexplorer.h
-    src/headers/stack.h
+    src/headers/container.h
     src/headers/json.hpp
 )
 

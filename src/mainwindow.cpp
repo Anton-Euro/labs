@@ -51,7 +51,7 @@ void MainWindow::double_click_to_dir(const QModelIndex &index) {
         while(history.size()-1 != history_index) history.removeLast();
         history.push_back(itemlist->current_dir);
         try {
-            hist.push(itemlist->current_dir);
+            hist.add(itemlist->current_dir);
         } catch (const MyException& e) {
             std::cerr << "Обработано исключение: " << e.what() << std::endl;
         } catch (const std::exception& e) {
@@ -70,7 +70,7 @@ void MainWindow::go_back() {
         if(history[history_index] != itemlist->current_dir) {
             history.push_back(itemlist->current_dir);
             try {
-                hist.pop();
+                hist.remove(hist.size()-1);
             } catch (const MyException& e) {
                 std::cerr << "Обработано исключение: " << e.what() << std::endl;
             } catch (const std::exception& e) {
