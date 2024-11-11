@@ -6,8 +6,8 @@ project(${PROJECT_N} VERSION 1.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets)
-# find_package(nlohmann_json 3.11.3 REQUIRED)
-# include_directories(${nlohmann_json_INCLUDE_DIRS})
+
+find_package(nlohmann_json 3.11.3 REQUIRED)
 
 set(SOURCES
     src/main.cpp
@@ -27,7 +27,6 @@ set(HEADERS
     src/headers/dir.h
     src/headers/listviewexplorer.h
     src/headers/container.h
-    src/headers/json.hpp
 )
 
 set(UI_HEADERS
@@ -51,7 +50,7 @@ target_link_libraries(${PROJECT_N}
     Qt6::Core
     Qt6::Gui
     Qt6::Widgets
-    # ${nlohmann_json_LIBRARIES}
+    nlohmann_json::nlohmann_json
 )
 
 
