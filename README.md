@@ -23,7 +23,7 @@
 `main.cpp` - главный файл<br>
 `file.cpp` - класс с релизацией item в виде файла<br>
 `dir.cpp` - класс с релизацией item в виде директории<br>
-`item.h`, `itemlist.h`, `file.h`, `dir.h` - хедер файлы
+`item.h`, `itemlist.h`, `file.h`, `dir.h` - хедер файлы<br>
 `container.h` - файл реализации контейнера
 
 ### Сборка
