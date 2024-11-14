@@ -47,7 +47,7 @@ public:
 
     void remove(size_t index) {
         if (index >= count) {
-            throw std::out_of_range("Index out of range");
+            throw MyException("Index out of range");
         }
         for (size_t i = index; i < count - 1; ++i) {
             data[i] = data[i + 1];
@@ -65,7 +65,7 @@ public:
 
     T& operator[](size_t index) {
         if (index >= count) {
-            throw std::out_of_range("Index out of range");
+            throw MyException("Index out of range");
         }
         return data[index];
     }

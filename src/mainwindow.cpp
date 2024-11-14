@@ -57,6 +57,12 @@ void MainWindow::double_click_to_dir(const QModelIndex &index) {
         } catch (const std::exception& e) {
             std::cerr << "Обработано стандартное исключение: " << e.what() << std::endl;
         }
+
+        MyContainer<std::shared_ptr<Item>>::Iterator iter = hist.begin();
+        while(iter!=hist.end()) {
+            std::cout << (*iter)->get_self_name() << std::endl;
+            ++iter;
+        }
         
         history_index++;
         itemlist->current_dir = itemlist->current_dir->get_ptr_from_index(index.row());

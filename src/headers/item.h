@@ -35,6 +35,10 @@ class Item : public File, public Dir {
             return items.size();
         }
 
+        std::string get_self_name() {
+            return name;
+        }
+
         std::string get_name(int index) {
             return items[index]->name;
         }
